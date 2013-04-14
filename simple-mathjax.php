@@ -10,26 +10,20 @@
 
 /*
  * inserts the mathjax configuration and script call
-*/
-add_action('wp_footer', 'add_mathjax');
+ */
+add_action('wp_head','configure_mathjax',1);
+function configure_mathjax() {
+  $custom_config = wp_kses( get_option('custom_mathjax_config'), array() );
+  $config = $custom_config ? $custom_config : "MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']]}});\n";
+  echo "\n<script type='text/x-mathjax-config'>\n" . $config . "</script>\n";
+}
+
+add_action('wp_enqueue_scripts', 'add_mathjax');
 function add_mathjax() {
   $custom_cdn = esc_url( get_option('custom_mathjax_cdn') );
-  $custom_config = wp_kses( get_option('custom_mathjax_config'), array() );
-  echo "\n<script type='text/x-mathjax-config'>\n";
-  if ( $custom_config ) {
-    echo $custom_config;
-  } else {
-    // note that's supposed to be \\ but since we're in "" we need to redouble
-    echo "MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']]}});\n";
-  }
-  echo "</script>\n";
-  echo "<script type='text/javascript' src='";
-  if ( $custom_cdn ) {
-    echo $custom_cdn;
-  } else {
-    echo "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-  }
-  echo "'></script>\n";
+  $cdn = $custom_cdn ? $custom_cdn : "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+
+  wp_enqueue_script('mathjax', $cdn);
 }
 
 
