@@ -7,7 +7,7 @@
  * Author URI: https://boolesrings.org
  */
 
-class SimpleMathjax {
+class SimpleMathJax {
 
   /*
    * Default options for the plugin
@@ -352,6 +352,24 @@ class SimpleMathjax {
     );
 
   }
+  public static function enqueue_block_js() {
+    wp_enqueue_script(
+      'simple-mathjax-block',
+      plugins_url( 'block.js', __FILE__ ),
+      array( 'wp-blocks', 'wp-editor' ),
+      filemtime( plugin_dir_path( __FILE__ ) . 'block.js' )
+    );
+    wp_register_style(
+      'simple-mathjax-block',
+      plugins_url( 'editor-block.css', __FILE__ ),
+      array( 'wp-edit-blocks' ),
+      filemtime( plugin_dir_path( __FILE__ ) . 'editor-block.css' )
+    );
+    register_block_type( 'simepl-mathjax/display-math', array(
+        'editor_style' => 'simple-mathjax-block',
+        'editor_script' => 'simple-mathjax-block',
+    ) );
+  }
 }
 
 add_action('wp_head','SimpleMathJax::configure_mathjax',1);
@@ -367,3 +385,5 @@ if ( $options['mathjax_in_admin'] ) {
    add_action('admin_footer', 'SimpleMathJax::add_preamble_adder');
 }
 add_action('admin_menu', 'SimpleMathJax::create_menu');
+
+add_action( 'init', 'SimpleMathJax::enqueue_block_js' );
