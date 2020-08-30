@@ -353,17 +353,24 @@ class SimpleMathJax {
 
   }
   public static function enqueue_block_js() {
-    wp_enqueue_script(
+    $dir = dirname( __FILE__ );
+    $script_asset_path = "$dir/build/index.asset.php";
+    $script_asset = require( $script_asset_path );
+
+    $index_js = 'build/index.js';
+    wp_register_script(
       'simple-mathjax-block',
-      plugins_url( 'block.js', __FILE__ ),
-      array( 'wp-blocks', 'wp-editor' ),
-      filemtime( plugin_dir_path( __FILE__ ) . 'block.js' )
+      plugins_url( $index_js, __FILE__ ),
+      $script_asset['dependencies'],
+      $script_asset['version']
     );
+
+    $editor_css = 'editor-block.css';
     wp_register_style(
       'simple-mathjax-block',
-      plugins_url( 'editor-block.css', __FILE__ ),
-      array( 'wp-edit-blocks' ),
-      filemtime( plugin_dir_path( __FILE__ ) . 'editor-block.css' )
+      plugins_url( $editor_css, __FILE__ ),
+      array( ),
+      filemtime( "$dir/$editor_css" )
     );
     register_block_type( 'simepl-mathjax/display-math', array(
         'editor_style' => 'simple-mathjax-block',
