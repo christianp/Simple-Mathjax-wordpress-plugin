@@ -32,7 +32,7 @@ class SimpleMathJax {
    * Default CDN URLs, for each major version.
    */
   public static $default_cdns = array(
-    2 => "//https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-MML-AM_CHTML,Safe.js",
+      2 => "//cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-MML-AM_CHTML,Safe.js",
     3 => "//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
   );
 
