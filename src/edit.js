@@ -4,16 +4,10 @@ import {
   RichText,
 } from '@wordpress/block-editor';
 import * as React from 'react';
+import { stripDelimiters } from './util.js';
 
 import {MathJaxNode} from './mathjaxnode.js';
 
-
-function stripDelimiters(str) {
-    if(str===undefined) {
-        str = '';
-    }
-    return str.replace(/^\\\[(.*)\\\]$/,'$1');
-}
 
 export default function LaTeXEdit( {attributes, setAttributes, className, isSelected } ) {
   let preClass = 'edit-latex';

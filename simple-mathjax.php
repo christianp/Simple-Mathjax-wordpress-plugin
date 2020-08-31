@@ -372,7 +372,7 @@ class SimpleMathJax {
       array( ),
       filemtime( "$dir/$editor_css" )
     );
-    register_block_type( 'simepl-mathjax/display-math', array(
+    register_block_type( 'simple-mathjax/display-math', array(
         'editor_style' => 'simple-mathjax-block',
         'editor_script' => 'simple-mathjax-block',
     ) );

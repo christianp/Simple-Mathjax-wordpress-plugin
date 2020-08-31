@@ -15,8 +15,17 @@ export class MathJaxNode extends React.Component {
     }
 
     typeset() {
+        if(!MathJax) {
+            return;
+        }
         this.container.current.textContent = `\\[${this.props.expression}\\]`;
-        MathJax.typeset([this.container.current]);
+        if(MathJax.version.match(/^3\./)) {
+            MathJax.typeset([this.container.current]);
+        } else if(MathJax.version.match(/^2\./)) {
+            MathJax.Hub.Typeset([this.container.current]);
+        } else {
+            return;
+        }
     }
 
     render() {

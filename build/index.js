@@ -292,19 +292,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _mathjaxnode_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mathjaxnode.js */ "./src/mathjaxnode.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util.js */ "./src/util.js");
+/* harmony import */ var _mathjaxnode_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mathjaxnode.js */ "./src/mathjaxnode.js");
 
 
 
 
-
-function stripDelimiters(str) {
-  if (str === undefined) {
-    str = '';
-  }
-
-  return str.replace(/^\\\[(.*)\\\]$/, '$1');
-}
 
 function LaTeXEdit(_ref) {
   var attributes = _ref.attributes,
@@ -325,7 +318,7 @@ function LaTeXEdit(_ref) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     ref: codeRef,
     tagName: "code",
-    value: stripDelimiters(attributes.content),
+    value: Object(_util_js__WEBPACK_IMPORTED_MODULE_3__["stripDelimiters"])(attributes.content),
     onChange: function onChange(content) {
       return setAttributes({
         content: content
@@ -333,8 +326,8 @@ function LaTeXEdit(_ref) {
     },
     placeholder: "Write math-mode LaTeX",
     "aria-label": "LaTeX math"
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_mathjaxnode_js__WEBPACK_IMPORTED_MODULE_3__["MathJaxNode"], {
-    expression: stripDelimiters(attributes.content)
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_mathjaxnode_js__WEBPACK_IMPORTED_MODULE_4__["MathJaxNode"], {
+    expression: Object(_util_js__WEBPACK_IMPORTED_MODULE_3__["stripDelimiters"])(attributes.content)
   }));
 }
 
@@ -362,8 +355,6 @@ var name = _block_json__WEBPACK_IMPORTED_MODULE_2__.name,
     attributes = _block_json__WEBPACK_IMPORTED_MODULE_2__.attributes;
 
 var registerBlockType = wp.blocks.registerBlockType;
-console.log("BLOOO");
-console.log(registerBlockType);
 /* harmony default export */ __webpack_exports__["default"] = (registerBlockType(name, {
   title: 'LaTeX Math',
   description: 'A block of LaTeX mathematics.',
@@ -443,8 +434,19 @@ var MathJaxNode = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "typeset",
     value: function typeset() {
+      if (!MathJax) {
+        return;
+      }
+
       this.container.current.textContent = "\\[".concat(this.props.expression, "\\]");
-      MathJax.typeset([this.container.current]);
+
+      if (MathJax.version.match(/^3\./)) {
+        MathJax.typeset([this.container.current]);
+      } else if (MathJax.version.match(/^2\./)) {
+        MathJax.Hub.Typeset([this.container.current]);
+      } else {
+        return;
+      }
     }
   }, {
     key: "render",
@@ -473,13 +475,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return save; });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util.js */ "./src/util.js");
+
 
 function save(_ref) {
   var attributes = _ref.attributes,
       className = _ref.className;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
     className: className
-  }, "\\[", attributes.content, "\\]");
+  }, "\\[", Object(_util_js__WEBPACK_IMPORTED_MODULE_1__["stripDelimiters"])(attributes.content), "\\]");
+}
+
+/***/ }),
+
+/***/ "./src/util.js":
+/*!*********************!*\
+  !*** ./src/util.js ***!
+  \*********************/
+/*! exports provided: stripDelimiters */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stripDelimiters", function() { return stripDelimiters; });
+function stripDelimiters(str) {
+  if (str === undefined) {
+    str = '';
+  }
+
+  return str.replace(/^(?:\\\[)*(.*?)(?:\\\])*$/, '$1');
 }
 
 /***/ }),

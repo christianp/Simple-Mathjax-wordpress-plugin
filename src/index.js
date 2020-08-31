@@ -8,9 +8,6 @@ export {metadata, name};
 
 const {registerBlockType} = wp.blocks;
 
-console.log("BLOOO");
-console.log(registerBlockType);
-
 export default registerBlockType(name, {
   title: 'LaTeX Math',
   description: 'A block of LaTeX mathematics.',
