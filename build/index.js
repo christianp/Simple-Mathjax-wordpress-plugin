@@ -434,7 +434,7 @@ var MathJaxNode = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "typeset",
     value: function typeset() {
-      if (!MathJax) {
+      if (!window.MathJax) {
         return;
       }
 

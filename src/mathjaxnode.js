@@ -15,7 +15,7 @@ export class MathJaxNode extends React.Component {
     }
 
     typeset() {
-        if(!MathJax) {
+        if(!window.MathJax) {
             return;
         }
         this.container.current.textContent = `\\[${this.props.expression}\\]`;
