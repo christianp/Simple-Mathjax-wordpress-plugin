@@ -7,7 +7,7 @@
  * Author URI: https://boolesrings.org
  */
 
-class SimpleMathjax {
+class SimpleMathJax {
 
   /*
    * Default options for the plugin
@@ -32,7 +32,7 @@ class SimpleMathjax {
    * Default CDN URLs, for each major version.
    */
   public static $default_cdns = array(
-    2 => "//https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-MML-AM_CHTML,Safe.js",
+      2 => "//cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-MML-AM_CHTML,Safe.js",
     3 => "//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
   );
 
@@ -352,6 +352,31 @@ class SimpleMathjax {
     );
 
   }
+  public static function enqueue_block_js() {
+    $dir = dirname( __FILE__ );
+    $script_asset_path = "$dir/build/index.asset.php";
+    $script_asset = require( $script_asset_path );
+
+    $index_js = 'build/index.js';
+    wp_register_script(
+      'simple-mathjax-block',
+      plugins_url( $index_js, __FILE__ ),
+      $script_asset['dependencies'],
+      $script_asset['version']
+    );
+
+    $editor_css = 'editor-block.css';
+    wp_register_style(
+      'simple-mathjax-block',
+      plugins_url( $editor_css, __FILE__ ),
+      array( ),
+      filemtime( "$dir/$editor_css" )
+    );
+    register_block_type( 'simple-mathjax/display-math', array(
+        'editor_style' => 'simple-mathjax-block',
+        'editor_script' => 'simple-mathjax-block',
+    ) );
+  }
 }
 
 add_action('wp_head','SimpleMathJax::configure_mathjax',1);
@@ -367,3 +392,5 @@ if ( $options['mathjax_in_admin'] ) {
    add_action('admin_footer', 'SimpleMathJax::add_preamble_adder');
 }
 add_action('admin_menu', 'SimpleMathJax::create_menu');
+
+add_action( 'init', 'SimpleMathJax::enqueue_block_js' );

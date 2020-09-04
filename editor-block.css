@@ -1,0 +1,12 @@
+.wp-block-simple-mathjax-display-math .edit-latex textarea {
+  padding: 0.5em;
+}
+
+.wp-block-simple-mathjax-display-math .edit-latex {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.wp-block-simple-mathjax-display-math .edit-latex:not(.show) {
+  display: none;
+}

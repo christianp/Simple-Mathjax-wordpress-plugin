@@ -1,0 +1,15 @@
+{
+  "name": "simple-mathjax/display-math",
+  "category": "core",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "source": "text",
+      "selector": "p"
+    }
+  },
+  "supports": {
+    "html": false,
+    "lightBlockWrapper": true
+  }
+}

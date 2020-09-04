@@ -1,0 +1,24 @@
+{
+  "name": "simple-mathjax",
+  "version": "1.0.0",
+  "description": "=== Simple Mathjax ===",
+  "main": "block.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boolesrings/Simple-MathJax-wordpress-plugin.git"
+  },
+  "author": "Christian Lawson-Perfect",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/boolesrings/Simple-MathJax-wordpress-plugin/issues"
+  },
+  "homepage": "https://github.com/boolesrings/Simple-MathJax-wordpress-plugin#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "12.1.1"
+  }
+}
