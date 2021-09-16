@@ -35,12 +35,18 @@ class SimpleMathjax {
                 tex: {\n 
                     inlineMath: [['$','$'],['\\\\(','\\\\)']], \n  
                     processEscapes: true, \n
+                    tags: 'ams',\n
                     macros: {\n
                         sa: '{\\\\mathcal F}',\n
                         om: '{\\\\Omega}',\n
                         compl: ['{#1^c}', 1],\n
                         tb: '{\\\\textbf}',\n
-                        ddefinition: '{\\\\tb{Definition}}'\n
+                        ddefinition: '{\\\\textbf{Definition}}',\n
+                        nameddef: ['\\\\ddefinition \\\\text{ (#1)}',1],\n
+                        nnote: '{\\\\textbf{Note}}',\n
+                        ttheorem: '{\\\\textbf{Theorem}}',\n
+                        pproof: '{\\\\textit{Proof}}',\n
+                        qqed: '{\\\\begin{multline*}\\\\shoveright\\\\square\\\\end{multline*}}'\n
                     },\n
                     environments: {\n
                         definition: ['\\\\ddefinition', '']\n
