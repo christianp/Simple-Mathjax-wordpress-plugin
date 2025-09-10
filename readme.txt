@@ -1,7 +1,6 @@
 === Simple Mathjax ===
 
 Contributors: sgcoskey, pkra, christianperfect
-Donate link: https://boolesrings.org
 Tags: mathjax, latex
 Requires at least: 3.0
 Tested up to: 6.8

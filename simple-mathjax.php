@@ -4,7 +4,7 @@
  * Description: Load the mathjax scripts across your wordpress blog
  * Version: 2.1.1
  * Author: Samuel Coskey, Peter Krautzberger, Christian Lawson-Perfect
- * Author URI: https://boolesrings.org
+ * Author URI: https://somethingorotherwhatever.com
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  */
