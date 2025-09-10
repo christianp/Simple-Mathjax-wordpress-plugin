@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Simple MathJax
  * Description: Load the mathjax scripts across your wordpress blog
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: Samuel Coskey, Peter Krautzberger, Christian Lawson-Perfect
  * Author URI: https://boolesrings.org
  * License: GPLv3
@@ -84,7 +84,7 @@ class SimpleMathjax {
   public static function configure_mathjax() {
     $options = self::load_options();
     $version = $options['major_version'];
-    $custom_config = wp_kses( $options['custom_mathjax_config'], array() );
+    $custom_config = $options['custom_mathjax_config'];
     $config = $custom_config ? $custom_config : self::$default_configs[$version];
     if($version==2) {
       echo "\n<script type='text/x-mathjax-config'>\n{$config}\n</script>\n";
